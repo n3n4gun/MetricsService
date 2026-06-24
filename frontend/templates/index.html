@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h2>Добро пожаловать на сайт!</h2>
+    <p>Это демонстрационный проект для сбора аналитики.</p>
+    <button id="testButton" class="btn">Нажми на меня</button>
+</div>
+
+<div class="features">
+    <div class="feature-card">
+        <h3>📈 Сбор метрик</h3>
+        <p>Отслеживаем просмотры страниц и клики пользователей</p>
+    </div>
+    <div class="feature-card">
+        <h3>🚀 DevOps</h3>
+        <p>Docker, мониторинг и автоматизация развертывания</p>
+    </div>
+    <div class="feature-card">
+        <h3>🐍 Python</h3>
+        <p>Бэкенд на FastAPI с асинхронной обработкой</p>
+    </div>
+</div>
+{% endblock %}

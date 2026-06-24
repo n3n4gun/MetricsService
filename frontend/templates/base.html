@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мой сайт{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/tracker.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📊 Analytics Site</h1>
+                <nav>
+                    <a href="/">Главная</a>
+                    <a href="/about">О нас</a>
+                    <a href="/blog">Блог</a>
+                    <a href="/contact">Контакты</a>
+                </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Analytics Project. Все права защищены.</p>
+        </div>
+    </footer>
+</body>
+</html>

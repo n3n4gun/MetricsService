@@ -1,0 +1,33 @@
+services:
+  frontend:
+    build:
+      context: ../..
+      dockerfile: devops/docker/Dockerfile.frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - backend_network
+    volumes:
+      - ../../devops/conf/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ../../frontend/static:/var/www/metrics_service/static:ro
+
+  backend:
+    build:
+      context: ../..
+      dockerfile: devops/docker/Dockerfile.backend
+    networks:
+      - backend_network
+    command: uvicorn app.main:metrics_service_app --host 0.0.0.0 --port 8000 --reload
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+networks:
+  backend_network:
+    driver: bridge
