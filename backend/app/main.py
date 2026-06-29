@@ -1,3 +1,6 @@
+import os
+import psycopg2
+
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.templating import Jinja2Templates
@@ -23,6 +26,21 @@ metrics_service_app.middleware(
         allow_headers = ['*']
     )
 )
+
+def db_connection():
+    try:
+        connection = psycopg2.connect(
+            db_name = os.getenv('DB_NAME'),
+            user = os.getenv('DB_USER'),
+            host = os.getenv('DB_HOST'),
+            port = os.getenv('DB_PORT'),
+            password = os.getenv('DB_PASSWORD')
+        )
+        logger.info('Successful DB connection')
+        return connection
+    except psycopg2.DatabaseError as db_connection_error:
+        logger.error(db_connection_error)
+        raise
 
 @metrics_service_app.get('/')
 async def index_page(request: Request):
